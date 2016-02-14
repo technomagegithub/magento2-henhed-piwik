@@ -108,6 +108,25 @@
                     <frontend_class>validate-digits validate-zero-or-greater</frontend_class>
                 </field>
             </group>
+            <group id="reporting"
+                   translate="label"
+                   type="text"
+                   sortOrder="20"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>Reporting API</label>
+                <field id="auth_token"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Authorization Token</label>
+                    <comment>TOKEN_AUTH value from a user listed under Settings/Users in your Piwik administration panel</comment>
+                </field>
+            </group>
         </section>
     </system>
 </config>

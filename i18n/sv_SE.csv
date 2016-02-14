@@ -11,3 +11,6 @@
 "Enable tracking of outlinks and downloads","Aktivera spårning av utlänkar och nedladdningar"
 "Link Tracking Timer","Länkspårningstimer"
 "Delay for link tracking in milliseconds","Fördröjning av länkspårning i millisekunder"
+"Reporting API","API för rapporter"
+"Authorization Token","Auktoriseringsnyckel"
+"TOKEN_AUTH value from a user listed under Settings/Users in your Piwik administration panel","TOKEN_AUTH-nyckel från en användare under Inställningar/Användare i Piwiks administrationspanel"

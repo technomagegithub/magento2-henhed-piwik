@@ -37,6 +37,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     const XML_PATH_SITE_ID = 'piwik/tracking/site_id';
     const XML_PATH_LINK_ENABLED = 'piwik/tracking/link_enabled';
     const XML_PATH_LINK_DELAY = 'piwik/tracking/link_delay';
+    const XML_PATH_AUTH_TOKEN = 'piwik/reporting/auth_token';
 
     /**
      * Check if Piwik is enabled
@@ -96,6 +97,21 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return (int) $this->scopeConfig->getValue(
             self::XML_PATH_SITE_ID,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $store
+        );
+    }
+
+    /**
+     * Retrieve Piwik authorization token
+     *
+     * @param null|string|bool|int|Store $store
+     * @return string
+     */
+    public function getAuthToken($store = null)
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_AUTH_TOKEN,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );

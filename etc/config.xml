@@ -30,6 +30,9 @@
                 <link_enabled>1</link_enabled>
                 <link_delay>500</link_delay>
             </tracking>
+            <reporting>
+                <auth_token></auth_token>
+            </reporting>
         </piwik>
     </default>
 </config>
