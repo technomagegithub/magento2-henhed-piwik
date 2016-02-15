@@ -32,6 +32,8 @@
             </tracking>
             <reporting>
                 <auth_token></auth_token>
+                <period>week</period>
+                <date>yesterday</date>
             </reporting>
         </piwik>
     </default>

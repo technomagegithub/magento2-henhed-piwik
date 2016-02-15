@@ -38,6 +38,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     const XML_PATH_LINK_ENABLED = 'piwik/tracking/link_enabled';
     const XML_PATH_LINK_DELAY = 'piwik/tracking/link_delay';
     const XML_PATH_AUTH_TOKEN = 'piwik/reporting/auth_token';
+    const XML_PATH_REPORTING_PERIOD = 'piwik/reporting/period';
+    const XML_PATH_REPORTING_DATE = 'piwik/reporting/date';
 
     /**
      * Check if Piwik is enabled
@@ -142,6 +144,36 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return (int) $this->scopeConfig->getValue(
             self::XML_PATH_LINK_DELAY,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $store
+        );
+    }
+
+    /**
+     * Retrieve default period for the Reporting API
+     *
+     * @param null|string|bool|int|Store $store
+     * @return string
+     */
+    public function getReportingPeriod($store = null)
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_REPORTING_PERIOD,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $store
+        );
+    }
+
+    /**
+     * Retrieve default date for the Reporting API
+     *
+     * @param null|string|bool|int|Store $store
+     * @return string
+     */
+    public function getReportingDate($store = null)
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_REPORTING_DATE,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
