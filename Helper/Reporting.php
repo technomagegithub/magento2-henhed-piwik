@@ -65,14 +65,15 @@ class Reporting
     }
 
     /**
-     * Get Reporting API base URL
+     * Get Reporting API endpoint URL
      *
      * @param null|string|bool|int|\Magento\Store\Model\Store $store
+     * @param null|bool $secure
      * @return string|false
      */
-    public function getApiUrl($store = null)
+    public function getApiEndpoint($store = null, $secure = null)
     {
-        $baseUrl = $this->_dataHelper->getBaseUrl($store);
+        $baseUrl = $this->_dataHelper->getBaseUrl($store, $secure);
         return !empty($baseUrl)
             ? $baseUrl . 'index.php'
             : false;
@@ -95,5 +96,23 @@ class Reporting
             self::PARAM_PERIOD => $data->getReportingPeriod($store),
             self::PARAM_LANGUAGE => reset($localeParts)
         ]);
+    }
+
+    /**
+     * Build Piwik Reporting API URL from given parameters
+     *
+     * @param array $params
+     * @param null|string|bool|int|\Magento\Store\Model\Store $store
+     * @param null|bool $secure
+     * @return string|false
+     */
+    public function getApiUrl(array $params = [], $store = null, $secure = null)
+    {
+        $endpoint = $this->getApiEndpoint($store, $secure);
+        if (empty($endpoint)) {
+            return false;
+        }
+        $query = array_merge($this->getDefaultApiParams($store), $params);
+        return $endpoint . '?' . http_build_query($query);
     }
 }
