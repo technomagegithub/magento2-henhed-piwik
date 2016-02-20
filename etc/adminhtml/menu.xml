@@ -20,13 +20,20 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Henhed_Piwik" setup_version="1.0.1">
-        <sequence>
-            <module name="Magento_Store" />
-            <module name="Magento_Customer" />
-            <module name="Magento_Checkout" />
-            <module name="Magento_Backend" />
-        </sequence>
-    </module>
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Henhed_Piwik::piwik"
+             title="Piwik"
+             module="Henhed_Piwik"
+             sortOrder="100"
+             parent="Magento_Reports::report"
+             resource="Henhed_Piwik::piwik" />
+        <add id="Henhed_Piwik::piwik_dashboard"
+             title="Dashboard"
+             module="Henhed_Piwik"
+             sortOrder="10"
+             parent="Henhed_Piwik::piwik"
+             action="piwik/report/dashboard"
+             resource="Henhed_Piwik::piwik" />
+    </menu>
 </config>
