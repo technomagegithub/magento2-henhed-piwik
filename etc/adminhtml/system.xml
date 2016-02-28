@@ -59,29 +59,33 @@
                        showInStore="1">
                     <label>Hostname</label>
                     <comment>Piwik hostname, optionally including a path e.g. piwik.example.com or example.com/piwik</comment>
-                    <depends>
-                        <field id="enabled">1</field>
-                    </depends>
                     <frontend_class>required-entry</frontend_class>
                 </field>
-                <field id="site_id"
+                <field id="secure_hostname"
                        translate="label comment"
                        type="text"
                        sortOrder="30"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
+                    <label>Secure Hostname</label>
+                    <comment>Hostname to use over secure connections. Leave empty to use the regular hostname.</comment>
+                </field>
+                <field id="site_id"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="40"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
                     <label>Site ID</label>
                     <comment>Listed under Settings/Website in your Piwik administration panel</comment>
-                    <depends>
-                        <field id="enabled">1</field>
-                    </depends>
                     <frontend_class>required-entry validate-digits validate-zero-or-greater</frontend_class>
                 </field>
                 <field id="link_enabled"
                        translate="label comment"
                        type="select"
-                       sortOrder="40"
+                       sortOrder="50"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
@@ -95,7 +99,7 @@
                 <field id="link_delay"
                        translate="label comment"
                        type="text"
-                       sortOrder="50"
+                       sortOrder="60"
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
@@ -125,6 +129,17 @@
                        showInStore="1">
                     <label>Authorization Token</label>
                     <comment>TOKEN_AUTH value from a user listed under Settings/Users in your Piwik administration panel</comment>
+                </field>
+                <field id="use_secure"
+                       translate="label comment"
+                       type="select"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Force Secure Connections</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Use a secure connection to Piwik even if the Magento connection is insecure</comment>
                 </field>
             </group>
         </section>

@@ -34,10 +34,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     const XML_PATH_ENABLED = 'piwik/tracking/enabled';
     const XML_PATH_HOSTNAME = 'piwik/tracking/hostname';
+    const XML_PATH_SECURE_HOSTNAME = 'piwik/tracking/secure_hostname';
     const XML_PATH_SITE_ID = 'piwik/tracking/site_id';
     const XML_PATH_LINK_ENABLED = 'piwik/tracking/link_enabled';
     const XML_PATH_LINK_DELAY = 'piwik/tracking/link_delay';
     const XML_PATH_AUTH_TOKEN = 'piwik/reporting/auth_token';
+    const XML_PATH_REPORTING_USE_SECURE = 'piwik/reporting/use_secure';
     const XML_PATH_REPORTING_PERIOD = 'piwik/reporting/period';
     const XML_PATH_REPORTING_DATE = 'piwik/reporting/date';
 
@@ -74,6 +76,22 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Retrieve Piwik hostname for secure connections
+     *
+     * @param null|string|bool|int|Store $store
+     * @return string
+     */
+    public function getSecureHostname($store = null)
+    {
+        $hostname = trim($this->scopeConfig->getValue(
+            self::XML_PATH_SECURE_HOSTNAME,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $store
+        ));
+        return $hostname ?: $this->getHostname($store);
+    }
+
+    /**
      * Retrieve Piwik base URL
      *
      * @param null|string|bool|int|Store $store
@@ -85,8 +103,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         if (is_null($secure)) {
             $secure = $this->_request->isSecure();
         }
-        $host = rtrim($this->getHostname($store), '/');
-        return ($secure ? 'https://' : 'http://') . $host . '/';
+        return $secure
+            ? 'https://' . rtrim($this->getSecureHostname($store), '/') . '/'
+            : 'http://' . rtrim($this->getHostname($store), '/') . '/';
     }
 
     /**
@@ -144,6 +163,21 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return (int) $this->scopeConfig->getValue(
             self::XML_PATH_LINK_DELAY,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $store
+        );
+    }
+
+    /**
+     * Check whether to use HTTPS for Reporting API requests
+     *
+     * @param null|string|bool|int|Store $store
+     * @return bool
+     */
+    public function useSecureReporting($store = null)
+    {
+        return $this->scopeConfig->isSetFlag(
+            self::XML_PATH_REPORTING_USE_SECURE,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );

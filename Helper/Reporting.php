@@ -73,6 +73,11 @@ class Reporting
      */
     public function getApiEndpoint($store = null, $secure = null)
     {
+        if (is_null($secure)
+            && $this->_dataHelper->useSecureReporting($store)
+        ) {
+            $secure = true;
+        }
         $baseUrl = $this->_dataHelper->getBaseUrl($store, $secure);
         return !empty($baseUrl)
             ? $baseUrl . 'index.php'
